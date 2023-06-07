@@ -22,17 +22,6 @@ class PersonaController extends Controller
 
         return [ "mensaje" => "Persona $idPersona eliminada."];
 
-
-
-    }
-    public function Insertar(Request $request){
-        $persona = new Persona;
-        $persona -> nombre = $request -> post("nombre");
-        $persona -> apellido = $request -> post("apellido");
-
-        $persona -> save();
-
-        return $persona;
     }
 
     public function Modificar(Request $request, $idPersona){
@@ -40,7 +29,20 @@ class PersonaController extends Controller
         $persona -> nombre = $request -> post("nombre");
         $persona -> apellido = $request -> post("apellido");
         $persona -> save();
+
         return $persona;
 
     }
+    public function Insertar(Request $request){
+        $persona = new Persona;
+        if($request -> post("nombre")== null || $request -> post("apellido")== null )
+            return abort(403);
+        $persona -> nombre = $request -> post("nombre");
+        $persona -> apellido = $request -> post("apellido");
+
+        $persona -> save();
+
+        return $persona;
+    }
+
 }
